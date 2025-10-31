@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fredrick ❤️ Jemima</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      overflow: hidden;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: bgflow 10s ease-in-out infinite alternate;
+    }
+
+    @keyframes bgflow {
+      0% { background: linear-gradient(135deg, #ff758c, #ff7eb3); }
+      50% { background: linear-gradient(135deg, #fcb045, #fd1d1d, #833ab4); }
+      100% { background: linear-gradient(135deg, #43cea2, #185a9d); }
+    }
+
+    /* Opening Screen */
+    #intro {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+      transition: opacity 2s ease-out;
+      z-index: 10;
+    }
+
+    #intro h2 {
+      font-size: 2em;
+      animation: glowText 2s ease-in-out infinite alternate;
+    }
+
+    #intro p {
+      font-size: 1.2em;
+      margin-top: 15px;
+      opacity: 0.9;
+    }
+
+    @keyframes glowText {
+      from { text-shadow: 0 0 10px #fff, 0 0 20px #ff66b2; }
+      to { text-shadow: 0 0 20px #fff, 0 0 40px #ff3385; }
+    }
+
+    #enterBtn {
+      margin-top: 40px;
+      background: #fff;
+      color: #ff3385;
+      padding: 10px 25px;
+      border-radius: 25px;
+      border: none;
+      font-size: 1.2em;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(255,255,255,0.6);
+      transition: 0.3s;
+    }
+
+    #enterBtn:hover {
+      transform: scale(1.1);
+      background: #ff3385;
+      color: #fff;
+    }
+
+    /* Main Screen */
+    #mainContent {
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+      text-align: center;
+      color: white;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+
+    h1 {
+      font-size: 3em;
+      z-index: 2;
+      text-shadow: 0 0 20px rgba(255,255,255,0.6);
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #fff, 0 0 20px #ff1a75, 0 0 30px #ff4da6; }
+      to { text-shadow: 0 0 20px #fff, 0 0 40px #ff80bf, 0 0 50px #ff1a75; }
+    }
+
+    p {
+      font-size: 1.3em;
+      z-index: 2;
+      animation: fadeIn 4s ease-in-out infinite alternate;
+      width: 80%;
+      margin: 20px auto;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0.6; }
+      to { opacity: 1; }
+    }
+
+    .heart {
+      position: absolute;
+      color: #ff007f;
+      font-size: 20px;
+      opacity: 0.8;
+      animation: floatHearts 8s linear infinite;
+    }
+
+    @keyframes floatHearts {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+    }
+
+    /* Music Controls */
+    #musicControl {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 5;
+    }
+
+    #musicControl button {
+      background: rgba(255, 255, 255, 0.7);
+      border: none;
+      border-radius: 50%;
+      padding: 10px;
+      font-size: 1.5em;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #musicControl button:hover {
+      background: rgba(255, 255, 255, 0.9);
+      transform: scale(1.1);
+    }
+
+    /* Download Button */
+    #downloadBtn {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: rgba(255,255,255,0.7);
+      border: none;
+      border-radius: 25px;
+      padding: 10px 20px;
+      font-size: 1em;
+      cursor: pointer;
+      color: #ff3385;
+      font-weight: bold;
+      box-shadow: 0 0 10px rgba(255,255,255,0.4);
+      transition: 0.3s;
+      z-index: 5;
+    }
+
+    #downloadBtn:hover {
+      background: #ff3385;
+      color: white;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <!-- Opening Page -->
+  <div id="intro">
+    <h2>💝 A Special Surprise Awaits 💝</h2>
+    <p>Click below to open your romantic gift from the heart 💞</p>
+    <button id="enterBtn">Open Gift 🎁</button>
+  </div>
+
+  <!-- Main Page -->
+  <div id="mainContent">
+    <canvas id="heartCanvas"></canvas>
+    <h1 id="names">Fredrick ❤️ Jemima</h1>
+    <p id="message"></p>
+
+    <!-- Music Player -->
+    <div id="musicControl">
+      <audio id="loveSong" loop>
+        <source src="Ray.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+      <button id="musicBtn">🎵</button>
+    </div>
+
+    <!-- Download Button -->
+    <button id="downloadBtn">💾 Download This Gift</button>
+  </div>
+
+  <script>
+    const intro = document.getElementById('intro');
+    const mainContent = document.getElementById('mainContent');
+    const button = document.getElementById('enterBtn');
+    const loveSong = document.getElementById('loveSong');
+    const musicBtn = document.getElementById('musicBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    let playing = false;
+
+    button.addEventListener('click', () => {
+      intro.style.opacity = '0';
+      setTimeout(() => {
+        intro.style.display = 'none';
+        mainContent.style.opacity = '1';
+        startAnimation();
+        playMusic();
+      }, 2000);
+    });
+
+    function playMusic() {
+      loveSong.play().then(() => playing = true).catch(err => console.log(err));
+    }
+
+    musicBtn.addEventListener('click', () => {
+      if (playing) {
+        loveSong.pause();
+        playing = false;
+        musicBtn.textContent = "🔇";
+      } else {
+        loveSong.play();
+        playing = true;
+        musicBtn.textContent = "🎵";
+      }
+    });
+
+    // Download button logic
+    downloadBtn.addEventListener('click', () => {
+      const content = document.documentElement.outerHTML;
+      const blob = new Blob([content], { type: "text/html" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "Fredrick❤️Jemima_Gift.html";
+      link.click();
+    });
+
+    function startAnimation() {
+      // Canvas Heart Drawing
+      const canvas = document.getElementById("heartCanvas");
+      const ctx = canvas.getContext("2d");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      let t = 0;
+      function drawHeart() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.beginPath();
+        ctx.moveTo(canvas.width / 2, canvas.height / 2);
+        ctx.strokeStyle = `hsl(${t % 360}, 100%, 70%)`;
+        ctx.lineWidth = 4;
+
+        for (let i = 0; i < Math.PI * 2; i += 0.01) {
+          const x = 16 * Math.pow(Math.sin(i), 3);
+          const y = 13 * Math.cos(i) - 5 * Math.cos(2 * i) - 2 * Math.cos(3 * i) - Math.cos(4 * i);
+          ctx.lineTo(canvas.width / 2 + x * 15, canvas.height / 2 - y * 15);
+        }
+
+        ctx.stroke();
+        t += 2;
+        requestAnimationFrame(drawHeart);
+      }
+      drawHeart();
+
+      // Floating Hearts
+      function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.textContent = "💖";
+        document.body.appendChild(heart);
+
+        const size = Math.random() * 30 + 10;
+        heart.style.fontSize = `${size}px`;
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.animationDuration = Math.random() * 6 + 5 + "s";
+        heart.style.color = `hsl(${Math.random() * 360}, 100%, 70%)`;
+
+        setTimeout(() => heart.remove(), 8000);
+      }
+
+      setInterval(createHeart, 500);
+
+      // Romantic Messages Loop
+      const messages = [
+        "You are my today and all of my tomorrows 💞",
+        "When I see you, my heart smiles ❤️",
+        "Every beat of my heart says your name 💓",
+        "Fredrick & Jemima — forever bound by love 💍",
+        "You're my sunshine after every rain ☀️🌧️"
+      ];
+
+      let index = 0;
+      function showMessage() {
+        document.getElementById("message").textContent = messages[index];
+        index = (index + 1) % messages.length;
+      }
+      showMessage();
+      setInterval(showMessage, 4000);
+    }
+  </script>
+</body>
+</html>
